@@ -1,14 +1,14 @@
-name: Running Project Validations
+name: Running Project Validation
 
 on: pull_request
 
 jobs:
-  build:
+  continuos-integration:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [16.x, 18.x]
 
     steps:
       - name: Checkout repository
@@ -21,8 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm i --force
-
-      - name: Run lint (guaranting project default structure)
-        run: npm run lint
+      - name: Run dependencies install and Lint
+        run: |
+          npm install
+          npm run lint
